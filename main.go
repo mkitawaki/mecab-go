@@ -1,19 +1,3 @@
-# mecab-go
-
-Mecab bindings for golang
-
-## Install mecab
-
-	$ brew install mecab
-	$ brew install mecab-ipadic
-
-## Get mecab-go
-
-	$ go get github.com/mkitawaki/mecab-go
-
-## Example
-
-```go
 package main
 
 import (
@@ -168,4 +152,3 @@ func main() {
 	lattice.Destroy()
 	model.Destroy()
 }
-```
