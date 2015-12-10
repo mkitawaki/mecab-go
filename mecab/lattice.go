@@ -19,11 +19,7 @@ type Lattice struct {
 }
 
 func latticeFinalizer(lattice *Lattice) {
-	lattice.mutex.Lock()
-	defer lattice.mutex.Unlock()
-	if lattice.isAlive {
-		lattice.Destroy()
-	}
+	lattice.Destroy()
 }
 
 func newLattice(p *_Ctype_struct_mecab_lattice_t) (*Lattice, error) {
@@ -60,9 +56,11 @@ func (l *Lattice) Clear() {
 func (l *Lattice) Destroy() {
 	l.mutex.Lock()
 	defer l.mutex.Unlock()
-	C.mecab_lattice_destroy(l.toMecabLatticeT())
-	l.memorize.Clear()
-	l.isAlive = false
+	if l.isAlive {
+		C.mecab_lattice_destroy(l.toMecabLatticeT())
+		l.memorize.Clear()
+		l.isAlive = false
+	}
 }
 
 // GetAllBeginNodes is used internally

@@ -25,11 +25,7 @@ var (
 )
 
 func modelFinalizer(model *Model) {
-	model.mutex.Lock()
-	defer model.mutex.Unlock()
-	if model.isAlive {
-		model.Destroy()
-	}
+	model.Destroy()
 }
 
 func newModel(p *_Ctype_struct_mecab_model_t) (*Model, error) {
@@ -82,9 +78,11 @@ func (m *Model) CreateTagger() (*Tagger, error) {
 func (m *Model) Destroy() {
 	m.mutex.Lock()
 	defer m.mutex.Unlock()
-	C.mecab_model_destroy(m.toMecabModelT())
-	m.memorize.Clear()
-	m.isAlive = false
+	if m.isAlive {
+		C.mecab_model_destroy(m.toMecabModelT())
+		m.memorize.Clear()
+		m.isAlive = false
+	}
 }
 
 func (m *Model) toMecabModelT() *C.mecab_model_t {

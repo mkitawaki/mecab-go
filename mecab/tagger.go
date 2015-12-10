@@ -25,11 +25,7 @@ var (
 )
 
 func taggerFinalizer(tagger *Tagger) {
-	tagger.mutex.Lock()
-	defer tagger.mutex.Unlock()
-	if tagger.isAlive {
-		tagger.Destroy()
-	}
+	tagger.Destroy()
 }
 
 func newTagger(p *_Ctype_struct_mecab_t) (*Tagger, error) {
@@ -84,9 +80,11 @@ func (t *Tagger) StrError() string {
 func (t *Tagger) Destroy() {
 	t.mutex.Lock()
 	defer t.mutex.Unlock()
-	C.mecab_destroy(t.toMecabT())
-	t.memorize.Clear()
-	t.isAlive = false
+	if t.isAlive {
+		C.mecab_destroy(t.toMecabT())
+		t.memorize.Clear()
+		t.isAlive = false
+	}
 }
 
 // GetPartial is a method to set partial parsing mode
