@@ -7,6 +7,11 @@ Mecab bindings for golang
 	$ brew install mecab
 	$ brew install mecab-ipadic
 
+## Link mecab library
+
+	$ ln -s /usr/local/Cellar/mecab/0.996/include $GOPATH/src/github.com/mkitawaki/mecab-go/include
+	$ ln -s /usr/local/Cellar/mecab/0.996/bin $GOPATH/src/github.com/mkitawaki/mecab-go/bin
+
 ## Get mecab-go
 
 	$ go get github.com/mkitawaki/mecab-go
