@@ -1,7 +1,7 @@
 package mecab
 
-// #cgo CFLAGS: -I/usr/local/Cellar/mecab/0.996/include
-// #cgo LDFLAGS: -L/usr/local/Cellar/mecab/0.996/lib -lmecab -lstdc++
+// #cgo CFLAGS: -I${SRCDIR}/include
+// #cgo LDFLAGS: -L${SRCDIR}/lib -lmecab -lstdc++
 // #include <mecab.h>
 // #include <stdio.h>
 // #include <stdlib.h>
@@ -20,7 +20,7 @@ type Model struct {
 }
 
 var (
-	// ErrNotFoundNode is the error that is returned when a node is not found
+	// ErrNotFoundModel is the error that is returned when a node is not found
 	ErrNotFoundModel = errors.New("Model: model not found")
 )
 

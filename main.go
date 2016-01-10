@@ -53,7 +53,7 @@ func main() {
 	check(err, tagger)
 
 	for ; err == nil; node, err = node.Next() {
-		id := node.Id()
+		id := node.ID()
 		fmt.Printf("%d", id)
 		n := node.Stat()
 		if n == m.MECAB_BOS_NODE {

@@ -1,7 +1,7 @@
 package mecab
 
-// #cgo CFLAGS: -I/usr/local/Cellar/mecab/0.996/include
-// #cgo LDFLAGS: -L/usr/local/Cellar/mecab/0.996/lib -lmecab -lstdc++
+// #cgo CFLAGS: -I${SRCDIR}/include
+// #cgo LDFLAGS: -L${SRCDIR}/lib -lmecab -lstdc++
 // #include <mecab.h>
 // #include <stdio.h>
 import "C"
@@ -68,8 +68,8 @@ func (l *Node) Feature() string {
 	return C.GoString(l.toMecabNodeT().feature)
 }
 
-// Id is a method to return a unique node id
-func (l *Node) Id() uint {
+// ID is a method to return a unique node id
+func (l *Node) ID() uint {
 	return (uint)(l.toMecabNodeT().id)
 }
 
